@@ -28,13 +28,7 @@ export default function Home() {
   }
 
   function toggle(id) {
-    // Bug: renamed `.map` -> `.Map` during a refactor (or copy-pasted from
-    // a language where it's capitalized) and never caught it -- throws a
-    // TypeError the moment a user actually clicks a checkbox. Deliberately
-    // client-side-only (an event handler, not the render path) so it's a
-    // genuine runtime crash reachable by window.onerror -- see the note
-    // in the JSX below about why a render-time bug can't be used here.
-    setTodos(todos.Map(t => (t.id === id ? { ...t, done: !t.done } : t)))
+    setTodos(todos.map(t => (t.id === id ? { ...t, done: !t.done } : t)))
   }
 
   function remove(id) {
@@ -56,14 +50,6 @@ export default function Home() {
       </div>
 
       <ul className="list">
-        {/* NOTE: a render-time bug here (e.g. referencing an undefined
-            variable) would NOT be catchable by a React error boundary in
-            this app -- Next.js's Pages Router server-renders with React's
-            classic renderToString, which does not invoke error boundaries
-            for render-phase errors (only the newer streaming SSR APIs do).
-            That's why the intentional bug lives in toggle() above instead:
-            a real client-side event-handler crash, which window.onerror
-            genuinely does catch. */}
         {todos.map(t => (
           <li key={t.id} className={t.done ? 'done' : ''}>
             <label>

@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     try {
       localStorage.setItem('todos', JSON.stringify(todos))
-    } catch (e) {}
+    } catch (e) {
   }, [todos])
 
   function addTodo() {

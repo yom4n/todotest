@@ -1,15 +1,12 @@
 {
-  "name": "todotest",
-  "version": "0.1.0",
+  "name": "todotest-demo",
   "private": true,
+  "workspaces": [
+    "services/gateway"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "13.5.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "test": "npm test --workspace services/gateway",
+    "dev": "docker compose up",
+    "seed": "node services/load/generate-load.js"
   }
 }

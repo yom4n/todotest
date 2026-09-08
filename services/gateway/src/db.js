@@ -7,9 +7,9 @@ const DEFAULT_DATABASE_URL = "postgresql://todotest:todotest@localhost:15432/tod
 export function createPool(connectionString = process.env.DATABASE_URL || DEFAULT_DATABASE_URL) {
   return new Pool({
     connectionString,
-    // BUG: tuned for local dev and never raised for production.
-    max: 2,
-    connectionTimeoutMillis: 500
+    // Adjusted for production environment
+    max: 10, // Increase max connections for better performance under load
+    connectionTimeoutMillis: 1000 // Increase timeout to reduce chances of timeout errors
   });
 }
 
